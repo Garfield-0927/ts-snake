@@ -33,10 +33,62 @@ module.exports = {
         test:/\.ts$/,
         // 使用的loader
         use: [
+          // 配置babel
+          {
+            // 指定loader
+            loader: "babel-loader",
+            // 设置babel
+            options: {
+              // 预定义环境
+              presets:[
+                [
+                  // 指定环境的插件
+                  "@babel/preset-env",
+                  // 配置信息
+                  {
+                    // 需要兼容的浏览器
+                    "targets": {
+                      "browsers": ["last 2 versions", "safari >= 7"]
+                    },
+                    "corejs": "3",
+                    // 按需加载
+                    "useBuiltIns": "usage"
+                  }
+                ]
+              ]
+            }
+          },
+
           'ts-loader'
         ],
         // 排除文件
         exclude: /node_moduels/
+      },
+
+      // 处理less文件
+      {
+        test: /\.less$/,
+        use:[
+          "style-loader",
+          "css-loader",
+          {
+            loader: "postcss-loader",
+            options: {
+              postcssOptions:{
+                plugins: [
+                  [
+                    "postcss-preset-env",
+                    {
+                      browsers:'last 2 versions'
+                    }
+                  ]
+
+                ]
+              }
+            }
+          },
+          "less-loader"
+        ]
       }
     ]
   },
