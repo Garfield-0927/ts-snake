@@ -1,14 +1,7 @@
 import "./style/index.less";
-import Food from "./modules/Food"
-import ScorePanel from "./modules/ScorePanel";
+import GameControl from "./modules/GameControl";
 
 
-const food = new Food();
-const scorepanel = new ScorePanel();
-setInterval(()=>{
-    food.position_change();
-    scorepanel.addscore();
-},100)
-console.log(document.getElementById("score").getElementsByClassName("value")[0])
 
+new GameControl().init();
 
